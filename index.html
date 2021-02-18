@@ -1,0 +1,2496 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/imd-ufrn.css" id="theme">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    
+    
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section class="capa">
+          <p class="codigo-disciplina">IMD0039</p>
+          <h1>Estruturas de Dados Básicas 2</h1>
+          <p class="instituicao">UFRN - Universidade Federal do Rio Grande do Norte</p>
+          <p class="departamento">IMD - Instituto Metrópole Digital</p>
+          <p class="professor">Professor Vinicius Mendes &lt;<a href="mailto:vinicius.mendes@imd.ufrn.br">mailto:vinicius.mendes@imd.ufrn.br</a>&gt;</p>
+          <p class="semestre">2020.2</p>
+        </section>
+        <section>
+          <h2>Complexidade Local e Assintótica</h2>
+          <pre><code data-trim data-noescape>
+            public int busca(int[] vetor, int chave) {
+              for (int i=0; i < vetor.length; i++) {
+                if (vetor[i] == chave) {
+                  return i;
+                }
+              }
+              return -1;
+            }
+          </code></pre>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade Local</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Complexidade Local: Melhor caso</h2>
+          <div class="code-with-case">
+            <pre><code data-trim data-noescape data-line-numbers="0|2|2|2|3">
+              public int busca(int[] vetor, int chave) {
+                for (int i=0; i < vetor.length; i++) {
+                  if (vetor[i] == chave) {
+                    return i;
+                  }
+                }
+                return -1;
+              }
+            </code></pre>
+            <div class="case">
+              Melhor caso
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="5">vetor</th>
+                    <th>&nbsp;</th>
+                    <th>chave</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>15</td>
+                    <td>28</td>
+                    <td>18</td>
+                    <td>...</td>
+                    <td>45</td>
+                    <td>&nbsp;</td>
+                    <td>15</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <table class="instrucoes" width="100%">
+            <thead>
+              <tr>
+                <th>Instrução</th>
+                <th>Execuções</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="code-fragment" data-fragment-index="0">
+                <td>int i = 0</td>
+                <td>1</td>
+              </tr>
+              <tr class="code-fragment" data-fragment-index="1">
+                <td>i &lt; vetor.length</td>
+                <td>1</td>
+              </tr>
+              <tr class="code-fragment" data-fragment-index="2">
+                <td>i++</td>
+                <td>1</td>
+              </tr>
+              <tr class="code-fragment" data-fragment-index="3">
+                <td>vetor[i] == chave</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="fragment">
+            \begin{equation}
+            1 + 1 + 1 + 1 = 4
+            \end{equation}
+          </div>
+        </section>
+
+        <section>
+          <h2>Complexidade Local e Assintótica</h2>
+          <pre><code data-trim data-noescape>
+            public int busca(int[] vetor, int chave) {
+              for (int i=0; i < vetor.length; i++) {
+                if (vetor[i] == chave) {
+                  return i;
+                }
+              }
+              return -1;
+            }
+          </code></pre>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade Local</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td><span class="equation emphasis">\begin{equation} 4 \end{equation}</span></td>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        
+        <section>
+          <h2>Complexidade Local: Melhor caso</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","1","2"," 3","4","5"],
+              "datasets": [
+               {
+                "data":[4, 4, 4, 4, 4, 4],
+                "label":"4","backgroundColor":"rgba(220,120,120,.8)"
+               }
+               ]
+              },
+              "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "# instruções"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+            </canvas>
+        </section>
+        
+        <section>
+          <h2>Melhor caso: Limite superior</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","1","2"," 3","4","5"],
+              "datasets": [
+               {
+                "data":[4, 4, 4, 4, 4, 4],
+                "label":"f(n) = 4","backgroundColor":"rgba(39,194,39,.8)"
+               },{
+                "data":[8, 8, 8, 8, 8, 8],
+                "label":"c \u00b7 g(1), c = 8","backgroundColor":"rgba(245,56,75,.2)", "borderDash": [10,5]
+               }
+               ]
+              },
+              "options": { 
+               "responsive": "true",
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+            </canvas>
+            <p>
+              <span class="equation">
+                \begin{equation}
+                f \in O(g) \Leftrightarrow f(n) \leqslant c \cdot g(n), \forall n > n_{0}
+                \end{equation}
+              </span>
+            </p>
+        </section>
+        <section>
+          <h2>Melhor caso: Limite inferior</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","1","2"," 3","4","5"],
+              "datasets": [
+               {
+                "data":[1, 1, 1, 1, 1, 1],
+                "label":"c \u00b7 g(1), c = 1","backgroundColor":"rgba(39,194,39,.2)", "borderDash": [10,5]
+               },{
+                "data":[4, 4, 4, 4, 4, 4],
+                "label":"f(n) = 4","backgroundColor":"rgba(245,56,75,.8)"
+               }
+               ]
+              },
+              "options": { 
+               "responsive": "true",
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+            </canvas>
+            <p>
+              <span class="equation">
+                \begin{equation}
+                f \in \Omega(g) \Leftrightarrow f(n) \geqslant c \cdot g(n), \forall n > n_{0}
+                \end{equation}
+              </span>
+            </p>
+        </section>
+        
+        <section>
+          <h2>Melhor caso: Crescimento equivalente</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","1","2"," 3","4","5"],
+              "datasets": [
+               {
+                "data":[1, 1, 1, 1, 1, 1],
+                "label":"c \u00b7 g(1), c = 1","backgroundColor":"rgba(39,194,39,.2)", "borderDash": [10,5]
+               },{
+                "data":[4, 4, 4, 4, 4, 4],
+                "label":"f(n) = 4","backgroundColor":"rgba(245,56,75,.8)"
+               },{
+                "data":[8, 8, 8, 8, 8, 8],
+                "label":"c \u00b7 g(n), c = 8","backgroundColor":"rgba(168,53,245,.2)", "borderDash": [10,5]
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+          </canvas>
+          
+            <p>
+              <span class="equation">
+                \begin{equation}
+                f \in \Theta(g) \Leftrightarrow f \in O(g)&nbsp;&nbsp;e&nbsp;&nbsp;f \in \Omega(g)
+                \end{equation}
+              </span>
+            </p>
+        </section>
+        
+        <section>
+          <h2>Complexidade Local e Assintótica</h2>
+          <pre><code data-trim data-noescape>
+            public int busca(int[] vetor, int chave) {
+              for (int i=0; i < vetor.length; i++) {
+                if (vetor[i] == chave) {
+                  return i;
+                }
+              }
+              return -1;
+            }
+          </code></pre>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade Local</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td><span class="equation">\begin{equation} 4 \end{equation}</span></td>
+              <td><span class="equation emphasis">\begin{equation} \Theta(1) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        
+        <section>
+          <h2>Complexidade Local: Pior caso</h2>
+          <div class="code-with-case">
+            <pre><code data-trim data-noescape data-line-numbers="0|2|2|2|2|3">
+              public int busca(int[] vetor, int chave) {
+                for (int i=0; i < vetor.length; i++) {
+                  if (vetor[i] == chave) {
+                    return i;
+                  }
+                }
+                return -1;
+              }
+            </code></pre>
+            <div class="case">
+              Pior caso
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="5">vetor</th>
+                    <th>&nbsp;</th>
+                    <th>chave</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>15</td>
+                    <td>28</td>
+                    <td>18</td>
+                    <td>62</td>
+                    <td>45</td>
+                    <td>&nbsp;</td>
+                    <td>53</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <table class="instrucoes" width="100%">
+            <thead>
+              <tr>
+                <th>Instrução</th>
+                <th>Execuções</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="code-fragment" data-fragment-index="0">
+                <td>int i = 0</td>
+                <td>1</td>
+              </tr>
+              <tr class="code-fragment" data-fragment-index="1">
+                <td>for (...) {}</td>
+                <td>n</td>
+              </tr>
+              <tr class="code-fragment" data-fragment-index="2">
+                <td><span class="identation">&mdash;</span>i &lt; vetor.length</td>
+                <td>1</td>
+              </tr>
+              <tr class="code-fragment" data-fragment-index="3">
+                <td><span class="identation">&mdash;</span>i++</td>
+                <td>1</td>
+              </tr>
+              <tr class="code-fragment" data-fragment-index="4">
+                <td><span class="identation">&mdash;</span>vetor[i] == chave</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="fragment">
+            <span class="equation">
+              \begin{equation}
+              1 + (1 + 1 + 1)*n = 3*n + 1
+              \end{equation}
+            </span>
+          </p>
+        </section>
+
+        <section>
+          <h2>Complexidade Local e Assintótica</h2>
+          <pre><code data-trim data-noescape>
+            public int busca(int[] vetor, int chave) {
+              for (int i=0; i < vetor.length; i++) {
+                if (vetor[i] == chave) {
+                  return i;
+                }
+              }
+              return -1;
+            }
+          </code></pre>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade Local</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td><span class="equation">\begin{equation} 4 \end{equation}</span></td>
+              <td><span class="equation">\begin{equation} \Theta(1) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td><span class="equation emphasis">\begin{equation} 3 \cdot n + 1 \end{equation}</span></td>
+              <td><span class="equation">\begin{equation} ? \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Complexidade Local: Pior caso</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","1","2"," 3","4","5"],
+              "datasets": [
+               {
+                "data":[1, 4, 7, 10, 13, 16],
+                "label":"3n+1","backgroundColor":"rgba(220,120,120,.8)"
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "# instruções"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+            </canvas>
+        </section>
+        <section>
+          <h2>Pior caso: Limite superior</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","1","2"," 3","4","5"],
+              "datasets": [
+               {
+                "data":[1, 4, 7, 10, 13, 16],
+                "label":"f(n) = 3n+1","backgroundColor":"rgba(39,194,39,.8)"
+               },{
+                "data":[0, 4, 8, 12, 16, 20],
+                "label":"c \u00b7 g(n), c = 4","backgroundColor":"rgba(220,120,120,.2)", "borderDash": [10,5]
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+            </canvas>
+            <p>
+              <span class="equation">
+                \begin{equation}
+                f \in \Omega(g) \Leftrightarrow f(n) \geqslant c \cdot g(n), \forall n > n_{0}
+                \end{equation}
+              </span>
+            </p>
+        </section>
+        <section>
+          <h2>Pior caso: Limite inferior</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","1","2"," 3","4","5"],
+              "datasets": [
+               {
+                "data":[0, 3, 6, 9, 12, 15],
+                "label":"c \u00b7 g(n), c = 3","backgroundColor":"rgba(39,194,39,.2)", "borderDash": [10,5]
+               },{
+                "data":[1, 4, 7, 10, 13, 16],
+                "label":"f(n) = 3n+1","backgroundColor":"rgba(220,120,120,.8)"
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+          </canvas>
+          <p>
+            <span class="equation">
+              \begin{equation}
+              f \in \Omega(g) \Leftrightarrow f(n) \geqslant c \cdot g(n), \forall n > n_{0}
+              \end{equation}
+            </span>
+          </p>
+        </section>
+        <section>
+          <h2>Pior caso: Crescimento equivalente</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","1","2"," 3","4","5"],
+              "datasets": [
+               {
+                "data":[0, 3, 6, 9, 12, 15],
+                "label":"c \u00b7 g(n), c = 3","backgroundColor":"rgba(39,194,39,.2)", "borderDash": [10,5]
+               },{
+                "data":[1, 4, 7, 10, 13, 16],
+                "label":"f(n) = 3n+1","backgroundColor":"rgba(220,120,120,.8)"
+               },{
+                "data":[0, 4, 8, 12, 16, 20],
+                "label":"c \u00b7 g(n), c = 4","backgroundColor":"rgba(168,53,245,.2)", "borderDash": [10,5]
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+          </canvas>
+          
+            <p>
+              <span class="equation">
+                \begin{equation}
+                f \in \Theta(g) \Leftrightarrow f \in O(g)&nbsp;&nbsp;e&nbsp;&nbsp;f \in \Omega(g)
+                \end{equation}
+              </span>
+            </p>
+        </section>
+        <section>
+          <h2>Complexidade Local e Assintótica</h2>
+          <pre><code data-trim data-noescape>
+            public int busca(int[] vetor, int chave) {
+              for (int i=0; i < vetor.length; i++) {
+                if (vetor[i] == chave) {
+                  return i;
+                }
+              }
+              return -1;
+            }
+          </code></pre>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade Local</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td><span class="equation">\begin{equation} 4 \end{equation}</span></td>
+              <td><span class="equation">\begin{equation} \Theta(1) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td><span class="equation">\begin{equation} 3 \cdot n + 1 \end{equation}</span></td>
+              <td><span class="equation emphasis">\begin{equation} \Theta(n) \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Complexidade quadrática</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","2","4"," 6","8","10"],
+              "datasets": [
+               {
+                "data":[0, 12, 32, 60, 96, 140],
+                "label":"f(n) = n^2 + 4n","backgroundColor":"rgba(220,120,120,.8)"
+               },{
+                "data":[0, 8, 32, 72, 128, 200],
+                "label":"c \u00b7 g(n^2), c = 2","backgroundColor":"rgba(168,53,245,.2)", "borderDash": [10,5]
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+          </canvas>
+        </section>
+        <section>
+          <h2>Complexidade Local e Assintótica</h2>
+          <p><span class="equation">\begin{equation} f(n) = n^2 + 4 \cdot n \in O(n^2) ? \end{equation}</span></p>
+          <p class="fragment"><span class="equation">\begin{equation} n^2 + 4 \cdot n \leqslant 2 \cdot n^2, \forall n > n_0 \end{equation}</span></p>
+          <p class="fragment"><span class="equation">\begin{equation} 4 \cdot n \leqslant 2 \cdot n^2 - n^2 \end{equation}</span></p>
+          <p class="fragment"><span class="equation">\begin{equation} 4 \cdot n \leqslant n^2 \end{equation}</span></p>
+          <p class="fragment"><span class="equation">\begin{equation} 4 \leqslant n \implies n_0 = 4 \end{equation}</span></p>
+        </section>
+        
+        <section>
+          <h2>Complexidade quadrática</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","2","4"," 6","8","10"],
+              "datasets": [
+               {
+                "data":[0, 12, 32, 60, 96, 140],
+                "label":"f(n) = n^2 + 4n","backgroundColor":"rgba(220,120,120,.8)"
+               },{
+                "data":[0, 40, 80, 120, 160, 200],
+                "label":"c \u00b7 g(n), c = 20","backgroundColor":"rgba(168,53,245,.2)", "borderDash": [10,5]
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+          </canvas>
+          <p><span class="equation">\begin{equation} \forall n > 0, n^2 + 4 \cdot n \leqslant 20 \cdot n ? \end{equation}</span></p>
+        </section>
+        <section>
+          <h2>Complexidade quadrática</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","2","4"," 6","8","10", "12", "14", "16", "18"],
+              "datasets": [
+               {
+                "data":[0, 12, 32, 60, 96, 140, 192, 252, 320, 396],
+                "label":"f(n) = n^2 + 4n","backgroundColor":"rgba(220,120,120,.8)"
+               },{
+                "data":[0, 40, 80, 120, 160, 200, 240, 280, 320, 360],
+                "label":"c \u00b7 g(n), c = 20","backgroundColor":"rgba(168,53,245,.2)", "borderDash": [10,5]
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true" 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+          </canvas>
+        </section>
+        
+        <section>
+          <h2>Complexidade Assintótica</h2>
+          <canvas data-chart="line">
+            <!--
+            {
+             "data": {
+              "labels": ["0","3","6","9","12","15"],
+              "datasets": [
+               {
+                "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                "label":"1","backgroundColor":"rgba(255,255,50,.8)"
+               },{
+                "data":[0, 1, 2.584962500721156, 3.1699250014423126, 3.5849625007211565, 3.9068905956085187, 4.169925001442312, 4.392317422778761, 4.584962500721157, 4.754887502163469],
+                "label":"log(n)","backgroundColor":"rgba(50,255,255,.8)"
+               },{
+                "data":[0, 3, 6, 9, 12, 15, 18, 21, 24, 27],
+                "label":"n","backgroundColor":"rgba(255,50,50,.8)"
+               },{
+                "data":[0, 2.0, 11.60964047443681, 24.0, 38.053747805010275, 53.30296890880645, 69.48686830125578, 86.43856189774725, 104.0419249893113, 122.2114326716684],
+                "label":"log(n)","backgroundColor":"rgba(255,50,255,.8)"
+               },{
+                "data":[0, 9, 36, 81, 144, 225, 324, 441, 576, 729],
+                "label":"n^2","backgroundColor":"rgba(37,88,151,.8)"
+               },{
+                "data":[1, 8, 64, 512, 4096, 32768, 262144, 2097152, 16777216, 134217728],
+                "label":"2^n","backgroundColor":"rgba(168,53,245,.8)"
+               },{
+                "data":[0, 27, 216, 729, 1728, 3375, 5832, 9261, 13824, 19683],
+                "label":"n^3","backgroundColor":"rgba(39,194,39, .8)"
+               },{
+                "data":[0, 6, 720, 362880, 479001600, 479001600, 479001600, 479001600, 479001600, 479001600],
+                "label":"n!","backgroundColor":"rgba(220,120,120,.8)"
+               }
+              ]
+             },
+             "options": { 
+               "responsive": "true", 
+               "scales": { 
+                "yAxes": [{
+                 "ticks": {
+                   "beginAtZero": "true",
+                   "max": 1000 
+                 },
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tempo"
+                 }
+                }],
+                
+                "xAxes": [{
+                 "scaleLabel": {
+                  "display": "true",
+                  "labelString": "tamanho do problema"
+                 }
+                }]
+               }
+              }
+            }
+            -->
+          </canvas>
+        </section>
+        
+        <section>
+          <img src="images/big-o-cheat-sheet-poster.png" width="80%"/>
+          <a href="https://www.bigocheatsheet.com/" target="_blank">https://www.bigocheatsheet.com/</a>
+        </section>
+        
+        <section>
+          <h2>Instruções: Complexidade Constante</h2>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>Instrução</th>
+                <th>Exemplo</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <td>Declaração de variável</td>
+                <td>int a, b, c;</td>
+                <td class="fragment">&Theta;(1)</td>
+              </tr>
+              <tr class="fragment">
+                <td>Atribuição de variável</td>
+                <td>a = 1;</td>
+                <td class="fragment">&Theta;(1)</td>
+              </tr>
+              <tr class="fragment">
+                <td>Operação aritmética</td>
+                <td>b = a * 5;</td>
+                <td class="fragment">&Theta;(1)</td>
+              </tr>
+              <tr class="fragment">
+                <td>Comparações</td>
+                <td>if(a < b)</td>
+                <td class="fragment">&Theta;(1)</td>
+              </tr>
+            </thead>
+          </table>
+          <p class="fragment"><span class="equation">\begin{equation} \Theta(1) + \Theta(1) + \Theta(1) = \Theta(1) \end{equation}</span></p>
+          <p class="fragment"><span class="equation">\begin{equation} \Theta(n) + \Theta(m) = \Theta(max(n,m)) \end{equation}</span></p>
+        </section>
+        
+        <section>
+          <h2>Instruções: Complexidade Linear</h2>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>Exemplo</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <td width="60%">
+                  <pre><code data-trim data-noescape>
+                    for (int i=0; i < n; i++) {
+                      // Bloco com complexidade &Theta;(1)
+                    }
+                  </code></pre>
+                </td>
+                <td><span class="fragment equation">\begin{equation} \Theta(1) \cdot \Theta(n) = \Theta(n) \end{equation}</span></td>
+              </tr>
+              <tr class="fragment">
+                <td width="60%">
+                  <pre><code data-trim data-noescape>
+                    for (int i=0; i < n; i++) {
+                      // Bloco com complexidade &Theta;(n)
+                    }
+                  </code></pre>
+                </td>
+                <td><span class="fragment equation">\begin{equation} \Theta(n) \cdot \Theta(n) = \Theta(n^2) \end{equation}</span></td>
+              </tr>
+              <tr class="fragment">
+                <td width="60%">
+                  <pre><code data-trim data-noescape>
+                    for (int i=0; i < n; i++) {
+                      // Bloco com complexidade &Theta;(m)
+                    }
+                  </code></pre>
+                </td>
+                <td><span class="fragment equation">\begin{equation} \Theta(m) \cdot \Theta(n) = \Theta(m \cdot n) \end{equation}</span></td>
+              </tr>
+              <tr class="fragment">
+                <td width="60%">
+                  <pre><code data-trim data-noescape>
+                    for (int i=0; i < n; i++) {
+                      // Bloco com complexidade &Theta;(n)
+                    }
+                    for (int i=0; i < n; i++) {
+                      // Bloco com complexidade &Theta;(n^2)
+                    }
+                  </code></pre>
+                </td>
+                <td>
+                  <span class="fragment equation">\begin{equation} \Theta(n) \cdot \Theta(n) + \Theta(n) \cdot \Theta(n^2) = \Theta(n^2 + n^3) \end{equation}</span>
+                  <span class="fragment equation">\begin{equation} \Theta(n^2 + n^3) = \Theta(n^3) \end{equation}</span>
+                </td>
+              </tr>
+            </thead>
+          </table>
+        </section>
+        <section>
+          <h2>Complexidade Média: premissas</h2>
+          <ul>
+            <li>Utilizaremos o algorítmo da busca sequencial</li>
+            <li>Assumiremos que a probabilidade do elemento estar em cada uma das posições é <span class="inline-equation equation">\begin{equation} 1 / n \end{equation}</span>.</li>
+            <li><span class="inline-equation equation">\begin{equation} \sum_{i=1}^{n} c_i \cdot p_i \end{equation}</span>, <span class="lighter">onde <span class="inline-equation equation">\begin{equation} c_i \end{equation}</span> é a complexidade no caso i e  <span class="inline-equation equation">\begin{equation} p_i \end{equation}</span> é a probabilidade do caso i ocorrer.</span></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Complexidade Média</h2>
+          <p>
+            <span class="inline-equation equation">\begin{equation} 1 \end{equation}</span>
+            <span class="inline-equation equation fragment">\begin{equation} \cdot 1/n \end{equation}</span>
+            <span class="inline-equation equation fragment">\begin{equation} + 2 \cdot 1/n \end{equation}</span>
+            <span class="inline-equation equation fragment">\begin{equation} + ... \end{equation}</span>
+            <span class="inline-equation equation fragment">\begin{equation} + (n-1) \cdot 1/n \end{equation}</span>
+            <span class="inline-equation equation fragment">\begin{equation} + n \cdot 1/n \end{equation}</span>
+          </p>
+          <p class="fragment">
+            <span class="inline-equation equation">\begin{equation} 1/n \end{equation}</span>
+            <span class="inline-equation equation fragment">\begin{equation} \cdot (1 + 2 + ... + (n-1) + n) \end{equation}</span>
+          </p>
+          <p class="fragment">
+            <span class="inline-equation equation emphasis">\begin{equation} \frac{1}{n} \cdot (1 + 2 + ... + (n-1) + n) \end{equation}</span>
+          </p>
+        </section>
+        <section>
+          <p><span class="inline-equation equation">\begin{equation} 1 + 2 + ... + (n-1) + n \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation equation">\begin{equation} n + (n-1) + ... + 2 + 1 \end{equation}</span>
+          <hr class="fragment"/>
+          <p class="fragment"><span class="inline-equation equation">\begin{equation} \frac{(n+1) + (n+1) + ... + (n+1) + (n+1)}{2} \end{equation}</span>
+          <p class="fragment"><span class="inline-equation equation">\begin{equation} \frac{n \cdot (n+1)}{2} \end{equation}</span>
+        </section>
+        
+        <section>
+          <h2>Complexidade Média</h2>
+          <p>
+            <span class="inline-equation equation">\begin{equation} 1 \end{equation}</span>
+            <span class="inline-equation equation">\begin{equation} \cdot 1/n \end{equation}</span>
+            <span class="inline-equation equation">\begin{equation} + 2 \cdot 1/n \end{equation}</span>
+            <span class="inline-equation equation">\begin{equation} + ... \end{equation}</span>
+            <span class="inline-equation equation">\begin{equation} + (n-1) \cdot 1/n \end{equation}</span>
+            <span class="inline-equation equation">\begin{equation} + n \cdot 1/n \end{equation}</span>
+          </p>
+          <p>
+            <span class="inline-equation equation">\begin{equation} 1/n \end{equation}</span>
+            <span class="inline-equation equation">\begin{equation} \cdot (1 + 2 + ... + (n-1) + n) \end{equation}</span>
+          </p>
+          <p class="fragment step-fade-in-then-out">
+            <span class="inline-equation equation">\begin{equation} \frac{1}{n} \cdot (1 + 2 + ... + (n-1) + n) \end{equation}</span>
+          </p>
+          <p class="fragment">
+            <span class="inline-equation equation">\begin{equation} \frac{1}{n} \cdot \frac{n \cdot (n+1)}{2} \end{equation}</span>
+          </p>
+          <p class="fragment">
+            <span class="inline-equation equation emphasis">\begin{equation} \frac{n+1}{2} \end{equation}</span>
+          </p>
+        </section>
+        
+        <section>
+          <h2>Algorítmos de ordenação</h2>
+          <ul>
+            <li>Ordenação por inserção</li>
+            <li>Ordenação por bolha</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Ordenação por inserção</h2>
+          <table class="vector">
+            <tr class="elements">
+              <td>3</td>
+              <td>4</td>
+              <td>1</td>
+              <td>5</td>
+              <td>2</td>
+            </tr>
+          </table>
+          <table class="instrucoes fragment">
+            <thead>
+              <tr>
+                <th>Operação</th>
+                <th>Retorno</th>
+              </tr>
+            </thead>
+            <tr class="show-on-fragment" data-show-on-fragment="9">
+              <td colspan="2">...</td>
+            </tr>
+            <tr class="hide-on-fragment" data-hide-on-fragment="9">
+              <td>4 < 3</td>
+              <td>false</td>
+            </tr>
+            <tr class="fragment hide-on-fragment" data-hide-on-fragment="10">
+              <td>1 < 4</td>
+              <td>true</td>
+            </tr>
+            <tr class="fragment hide-on-fragment" data-hide-on-fragment="11">
+              <td>troca 1 e 4</td>
+              <td>
+                <table class="vector">
+                  <tr class="elements">
+                    <td>3</td>
+                    <td class="emphasis">1</td>
+                    <td class="emphasis">4</td>
+                    <td>5</td>
+                    <td>2</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="fragment hide-on-fragment" data-hide-on-fragment="12">
+              <td>1 < 3</td>
+              <td>true</td>
+            </tr>
+            <tr class="fragment">
+              <td>troca 1 e 3</td>
+              <td>
+                <table class="vector">
+                  <tr class="elements">
+                    <td class="emphasis">1</td>
+                    <td class="emphasis">3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>2</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="fragment">
+              <td>5 < 4</td>
+              <td>false</td>
+            </tr>
+            <tr class="fragment">
+              <td>2 < 5</td>
+              <td>true</td>
+            </tr>
+            <tr class="fragment">
+              <td>troca 2 e 5</td>
+              <td>
+                <table class="vector">
+                  <tr class="elements">
+                    <td>1</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td class="emphasis">2</td>
+                    <td class="emphasis">5</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="fragment">
+              <td>2 < 4</td>
+              <td>true</td>
+            </tr>
+            <tr class="fragment">
+              <td>troca 2 e 4</td>
+              <td>
+                <table class="vector">
+                  <tr class="elements">
+                    <td>1</td>
+                    <td>3</td>
+                    <td class="emphasis">2</td>
+                    <td class="emphasis">4</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr class="fragment">
+              <td>2 < 3</td>
+              <td>true</td>
+            </tr>
+            <tr class="fragment">
+              <td>troca 2 e 3</td>
+              <td>
+                <table class="vector">
+                  <tr class="elements">
+                    <td>1</td>
+                    <td class="emphasis">2</td>
+                    <td class="emphasis">3</td>
+                    <td>4</td>
+                    <td>5</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Ordenação por inserção</h2>
+          <div class="code-with-case">
+            <pre><code data-trim data-noescape data-line-numbers="0|3|4|5|6|3|4|5|6|7|8|6|7|8|6|10|3|4|5|6|3|4|5|6|7|8|6|7|8|6|7|8|6|10|3|11">
+              public int ordenacaoPorInsercao(int[] vetor) {
+                int i,j,x; 
+                for (int i=1; i &lt; vetor.length; i++) {
+                  x = vetor[i];
+                  j = i - 1;
+                  while (j &gt;= 0 && vetor[j] > x) {
+                    vetor[j+1] = vetor[j];
+                    j--;
+                  }
+                  vetor[j+1] = x;
+                }
+              }
+            </code></pre>
+            <div class="case">
+              <table class="vector">
+                <tbody>
+                  <tr>
+                    <td class="hint right">-1</td>
+                    <td class="hint">&nbsp;</td>
+                    <td class="hint">
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="12" data-hide-on-fragment="17">&leftarrow; j</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="hint right">0</td>
+                    <td class="element">
+                      <div class="hide-on-fragment" data-hide-on-fragment="14">3</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="14" data-hide-on-fragment="60">1</div>
+                    </td>
+                    <td class="hint">
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="2" data-hide-on-fragment="6">&leftarrow; j</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="9" data-hide-on-fragment="12">&leftarrow; j</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="30" data-hide-on-fragment="60">&leftarrow; j</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="hint right">1</td>
+                    <td class="element">
+                      <div class="hide-on-fragment" data-hide-on-fragment="11">4</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="11" data-hide-on-fragment="32">3</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="32" data-hide-on-fragment="60">2</div>
+                    </td>
+                    <td class="hint">
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="4">&leftarrow; i</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="9">&leftarrow; j</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="27" data-hide-on-fragment="30">&leftarrow; j</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="hint right">2</td>
+                    <td class="element">
+                      <div class="hide-on-fragment" data-hide-on-fragment="8">1</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="8" data-hide-on-fragment="29">4</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="29" data-hide-on-fragment="60">3</div>
+                    </td>
+                    <td class="hint">
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="4" data-hide-on-fragment="15">&leftarrow; i</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="17" data-hide-on-fragment="21">&leftarrow; j</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="24" data-hide-on-fragment="27">&leftarrow; j</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="hint right">3</td>
+                    <td class="element">
+                      <div class="hide-on-fragment" data-hide-on-fragment="26">5</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="26" data-hide-on-fragment="50">4</div>
+                    </td>
+                    <td class="hint">
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="15" data-hide-on-fragment="19">&leftarrow; i</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="21" data-hide-on-fragment="24">&leftarrow; j</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="hint right">4</td>
+                    <td class="element">
+                      <div class="hide-on-fragment" data-hide-on-fragment="23">2</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="23" data-hide-on-fragment="60">5</div>
+                    </td>
+                    <td class="hint">
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="19" data-hide-on-fragment="33">&leftarrow; i</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="hint right">6</td>
+                    <td class="hint">&nbsp;</td>
+                    <td class="hint">
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="33" data-hide-on-fragment="60">&leftarrow; i</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="hint" colspan="3"><hr/></td>
+                  </tr>
+                  <tr>
+                    <td class="hint right">x</td>
+                    <td class="element">
+                      <div class="hide-on-fragment lighter" style="font-size: 0.8em;" data-hide-on-fragment="1">&#X2205;</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="1" data-hide-on-fragment="5">4</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="5" data-hide-on-fragment="16">1</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="16" data-hide-on-fragment="20">5</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="20" data-hide-on-fragment="60">2</div>
+                    </td>
+                    <td class="hint">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="hint right">vetor[j]</td>
+                    <td class="element">
+                      <div class="hide-on-fragment lighter" style="font-size: 0.8em;" data-hide-on-fragment="2">&#X2205;</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="2" data-hide-on-fragment="6">3</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="9">4</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="9" data-hide-on-fragment="12">3</div>
+                      <div class="show-on-fragment hide-on-fragment lighter" style="font-size: 0.8em;" data-show-on-fragment="12"  data-hide-on-fragment="17">&#X2205;</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="17" data-hide-on-fragment="21">4</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="21" data-hide-on-fragment="24">5</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="24" data-hide-on-fragment="27">4</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="27" data-hide-on-fragment="30">3</div>
+                      <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="30" data-hide-on-fragment="60">1</div>
+                    </td>
+                    <td class="hint">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <table class="instrucoes hide-on-fragment" data-hide-on-fragment="0">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} ? \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} ? \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Ordenação por inserção: Melhor caso</h2>
+          <div class="code-with-case">
+            <pre><code data-trim data-noescape>
+              public int ordenacaoPorInsercao(int[] vetor) {
+                int i,j,x; 
+                for (int i=1; i &lt; vetor.length; i++) {
+                  x = vetor[i];
+                  j = i - 1;
+                  while (j &gt;= 0 && vetor[j] > x) {
+                    vetor[j+1] = vetor[j];
+                    j--;
+                  }
+                  vetor[j+1] = x;
+                }
+              }
+            </code></pre>
+            <div class="case">
+              <table class="vector">
+                <tr>
+                  <td class="element">1</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="element">2</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="element">3</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="element">4</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="element">5</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="fragment code-note" style="top: 122px; left: 110px">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <div class="fragment block-note" style="top: 146px; left: 350px; line-height: 130px;">&LeftArrow; <span class="inline-equation equation">\begin{equation} n-1 = O(n) \end{equation}</span></div>
+          <div class="fragment code-note" style="top: 152px; left: 155px">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <div class="fragment code-note" style="top: 168px; left: 130px">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <div class="fragment block-note" style="top: 192px; left: 285px; line-height: 52px;">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <div class="fragment code-note" style="top: 250px; left: 165px">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <p class="fragment"><span class="equation">\begin{equation} O(1) + O(n) \cdot [O(1) + O(1) + O(1) + O(1)] \end{equation}</span></p>
+          <p class="fragment"><span class="equation">\begin{equation} O(1) + O(n) \cdot O(1) \end{equation}</span></p>
+          <p class="fragment"><span class="equation">\begin{equation} O(1) + O(n) \end{equation}</span></p>
+          <p class="fragment emphasis"><span class="equation">\begin{equation} O(n) \end{equation}</span></p>
+        </section>
+        <section>
+          <h2>Ordenação por inserção: Pior caso</h2>
+          <div class="code-with-case">
+            <pre><code data-trim data-noescape>
+              public int ordenacaoPorInsercao(int[] vetor) {
+                int i,j,x; 
+                for (int i=1; i &lt; vetor.length; i++) {
+                  x = vetor[i];
+                  j = i - 1;
+                  while (j &gt;= 0 && vetor[j] > x) {
+                    vetor[j+1] = vetor[j];
+                    j--;
+                  }
+                  vetor[j+1] = x;
+                }
+              }
+            </code></pre>
+            <div class="case">
+              <table class="vector">
+                <tr>
+                  <td class="element">5</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="element">4</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="element">3</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="element">2</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="element">1</td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="fragment code-note" style="top: 122px; left: 110px">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <div class="fragment block-note" style="top: 146px; left: 350px; line-height: 130px;">&LeftArrow; <span class="inline-equation equation">\begin{equation} n-1 = O(n) \end{equation}</span></div>
+          <div class="fragment code-note" style="top: 152px; left: 155px">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <div class="fragment code-note" style="top: 168px; left: 130px">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <div class="fragment code-note" style="top: 250px; left: 165px">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(1) \end{equation}</span></div>
+          <div class="fragment step-fade-in-then-out block-note emphasis" style="top: 192px; left: 285px; line-height: 52px;">&LeftArrow; <span class="inline-equation equation">\begin{equation} ? \end{equation}</span></div>
+          <div class="code-with-case">
+            <div class="case fragment side-separator" style="font-size: 0.7em;">
+              <h3>i=1</h3>
+              <div class="case-with-case">
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="case fragment side-separator" style="font-size: 0.7em;">
+              <h3>i=2</h3>
+              <div class="case-with-case">
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="case fragment side-separator" style="font-size: 0.7em;">
+              <h3>i=3</h3>
+              <div class="case-with-case">
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="case fragment side-separator" style="font-size: 0.7em;">
+              <h3>i=4</h3>
+              <div class="case-with-case">
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1 &UpArrow;</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">1 &UpArrow;</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                </table>
+                <table class="vector fragment" style="margin: 0 auto">
+                  <tr>
+                    <td class="hint" rowspan="5">&Implies;</td>
+                    <td class="element">1</td>
+                  </tr>
+                  <tr>
+                    <td class="element">2</td>
+                  </tr>
+                  <tr>
+                    <td class="element">3</td>
+                  </tr>
+                  <tr>
+                    <td class="element">4</td>
+                  </tr>
+                  <tr>
+                    <td class="element">5</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <p style="font-size: 0.8em;">
+            <span class="inline-equation fragment">\begin{equation} 1 + 2 + ... + (n - 1) \end{equation}</span>
+            <span class="inline-equation fragment">\begin{equation} = \frac{n \cdot (n-1)}{2} \end{equation}</span>
+            <span class="inline-equation fragment">\begin{equation} = \frac{n^2 - n}{2} \end{equation}</span>
+            <span class="inline-equation fragment emphasis">\begin{equation} \implies O(n^2) \end{equation}</span>
+          </p>
+          <div class="fragment step-fade-in-then-out block-note" style="top: 192px; left: 285px; line-height: 52px;">&LeftArrow; <span class="inline-equation equation">\begin{equation} O(n^2) \end{equation}</span></div>
+          
+        </section>
+        <section>
+          <h2>Ordenação por bolha</h2>
+          <div class="code-with-case">
+            <div class="case">
+              <table class="vector" style="margin: 0 auto">
+                <tr>
+                  <td class="hint right">0</td>
+                  <td class="element">
+                    <div class="hide-on-fragment" data-hide-on-fragment="20">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="20" data-hide-on-fragment="60">1</div>
+                  </td>
+                  <td class="hint">
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="1" data-hide-on-fragment="3">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="17" data-hide-on-fragment="22">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="31" data-hide-on-fragment="33">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="40" data-hide-on-fragment="42">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="44" data-hide-on-fragment="60">&leftarrow; i</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hint right">1</td>
+                  <td class="element">
+                    <div class="hide-on-fragment" data-hide-on-fragment="6">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="21">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="21" data-hide-on-fragment="36">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="36" data-hide-on-fragment="60">2</div>
+                  </td>
+                  <td class="hint">
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="3" data-hide-on-fragment="8">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="22" data-hide-on-fragment="24">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="33" data-hide-on-fragment="38">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="39" data-hide-on-fragment="42">&leftarrow; i</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="42" data-hide-on-fragment="44">&leftarrow; i,j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="44" data-hide-on-fragment="60">&leftarrow; j</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hint right">2</td>
+                  <td class="element">
+                    <div class="hide-on-fragment" data-hide-on-fragment="7">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="7" data-hide-on-fragment="27">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="27" data-hide-on-fragment="37">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="37" data-hide-on-fragment="60">3</div>
+                  </td>
+                  <td class="hint">
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="8" data-hide-on-fragment="10">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="24" data-hide-on-fragment="29">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="30" data-hide-on-fragment="38">&leftarrow; i</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="38" data-hide-on-fragment="39">&leftarrow; i,j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="39" data-hide-on-fragment="40">&leftarrow; j</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hint right">3</td>
+                  <td class="element">
+                    <div class="hide-on-fragment" data-hide-on-fragment="13">5</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="13" data-hide-on-fragment="28">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="28" data-hide-on-fragment="60">4</div>
+                  </td>
+                  <td class="hint">
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="10" data-hide-on-fragment="15">&leftarrow; j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="16" data-hide-on-fragment="29">&leftarrow; i</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="29" data-hide-on-fragment="30">&leftarrow; i,j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="30" data-hide-on-fragment="31">&leftarrow; j</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hint right">4</td>
+                  <td class="element">
+                    <div class="hide-on-fragment" data-hide-on-fragment="14">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="14" data-hide-on-fragment="60">5</div>
+                  </td>
+                  <td class="hint">
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="15">&leftarrow; i</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="15" data-hide-on-fragment="16">&leftarrow; i,j</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="16" data-hide-on-fragment="17">&leftarrow; j</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hint" colspan="3">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="hint right">vetor[j]</td>
+                  <td class="element">
+                    <div class="hide-on-fragment lighter" style="font-size: 0.8em;" data-hide-on-fragment="1">&#X2205;</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="1" data-hide-on-fragment="3">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="3" data-hide-on-fragment="6">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="8">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="8" data-hide-on-fragment="10">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="10" data-hide-on-fragment="13">5</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="13" data-hide-on-fragment="15">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="15" data-hide-on-fragment="17">5</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="17" data-hide-on-fragment="20">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="20" data-hide-on-fragment="22">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="22" data-hide-on-fragment="24">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="24" data-hide-on-fragment="27">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="27" data-hide-on-fragment="29">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="29" data-hide-on-fragment="31">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="31" data-hide-on-fragment="33">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="33" data-hide-on-fragment="36">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="36" data-hide-on-fragment="38">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="38" data-hide-on-fragment="40">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="40" data-hide-on-fragment="42">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="42" data-hide-on-fragment="60">2</div>
+                  </td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="hint right">vetor[j+1]</td>
+                  <td class="element">
+                    <div class="hide-on-fragment lighter" style="font-size: 0.8em;" data-hide-on-fragment="1">&#X2205;</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="1" data-hide-on-fragment="3">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="3" data-hide-on-fragment="7">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="7" data-hide-on-fragment="8">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="8" data-hide-on-fragment="10">5</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="10" data-hide-on-fragment="14">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="14" data-hide-on-fragment="15">5</div>
+                    <div class="show-on-fragment hide-on-fragment lighter" style="font-size: 0.8em;" data-show-on-fragment="15" data-hide-on-fragment="17">&#X2205;</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="17" data-hide-on-fragment="21">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="21" data-hide-on-fragment="22">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="22" data-hide-on-fragment="24">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="24" data-hide-on-fragment="28">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="28" data-hide-on-fragment="29">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="29" data-hide-on-fragment="31">5</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="31" data-hide-on-fragment="33">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="33" data-hide-on-fragment="37">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="37" data-hide-on-fragment="38">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="38" data-hide-on-fragment="40">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="40" data-hide-on-fragment="42">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="42" data-hide-on-fragment="60">3</div>
+                  </td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="hint right">aux</td>
+                  <td class="element">
+                    <div class="hide-on-fragment lighter" style="font-size: 0.8em;" data-hide-on-fragment="5">&#X2205;</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="5" data-hide-on-fragment="12">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="12" data-hide-on-fragment="19">5</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="19" data-hide-on-fragment="26">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="26" data-hide-on-fragment="35">4</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="35" data-hide-on-fragment="60">3</div>
+                  </td>
+                  <td class="hint">&nbsp;</td>
+                </tr>
+              </table>
+            </div>
+            <pre><code data-trim data-noescape data-line-numbers="0|3|4|5|4|5|6|7|8|4|5|4|5|6|7|8|4|3|4|5|6|7|8|4|5|4|5|6|7|8|4|3|4|5|4|5|6|7|8|4|3|4|5|4|5|3|11|5-9">
+              public int ordenacaoPorBolha(int[] vetor) {
+                int i,j,aux; 
+                for (i = vetor.length-1; i &gt; 0; i--) {
+                  for (j = 0; j &lt; i; j++) {
+                    if(vetor[j] > vetor[j+1]) {
+                      aux = vetor[j];
+                      vetor[j] = vetor[j+1];
+                      vetor[j+1] = aux;
+                    }
+                  }
+                }
+              }
+            </code></pre>
+          </div>
+          <p style="font-size: 0.8em;" class="hide-on-fragment" data-hide-on-fragment="51">
+            <span class="inline-equation fragment">\begin{equation} (n - 1) + (n - 2) + ... + 2 + 1 \end{equation}</span>
+            <span class="inline-equation fragment">\begin{equation} = \frac{n \cdot (n-1)}{2} \end{equation}</span>
+            <span class="inline-equation fragment">\begin{equation} = \frac{n^2 - n}{2} \end{equation}</span>
+            <span class="inline-equation fragment emphasis">\begin{equation} \implies O(n^2) \end{equation}</span>
+          </p>
+          
+          <table class="instrucoes fragment">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n^2) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n^2) \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Ordenação por bolha</h2>
+          <p>Como melhorar?</p>
+          <p class="fragment small lighter">Se o segundo laço não fizer nenhuma troca, podemos encerrar o algoritmo.</p>
+        </section>
+        <section>
+          <h2>Ordenação por bolha</h2>
+          <div class="small">
+            <pre width="80%"><code data-trim data-noescape data-line-numbers="3-6,12-16">
+              public int ordenacaoPorBolha(int[] vetor) {
+                int i,j,aux;
+                boolean swap;
+                i = vetor.length - 1;
+                do {
+                  swap = false;
+                  for (j = 0; j &lt; i; j++) {
+                    if(vetor[j] > vetor[j+1]) {
+                      aux = vetor[j];
+                      vetor[j] = vetor[j+1];
+                      vetor[j+1] = aux;
+                      swap = true;
+                    }
+                    i--;
+                  }
+                } while (swap);
+              }
+            </code></pre>
+          </div>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade Assintótica</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td class="center hide-on-fragment" data-hide-on-fragment="0">
+                <span class="inline-equation">\begin{equation} ? \end{equation}</span>
+              </td>
+              <td class="center show-on-fragment" data-show-on-fragment="0">
+                <span class="inline-equation fragment">\begin{equation} O(n) \end{equation}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td class="center hide-on-fragment" data-hide-on-fragment="1">
+                <span class="inline-equation">\begin{equation} ? \end{equation}</span>
+              </td>
+              <td class="center show-on-fragment" data-show-on-fragment="1">
+                <span class="inline-equation fragment">\begin{equation} O(n^2) \end{equation}</span>
+              </td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Algoritmos recursivos</h2>
+        </section>
+        <section>
+          <h2>Fatorial</h2>
+          <table class="instrucoes">
+            <tr>
+              <th>Caso base</th>
+              <td class="center hide-on-fragment" data-hide-on-fragment="0">
+                <span class="inline-equation">\begin{equation} ? \end{equation}</span>
+              </td>
+              <td class="center show-on-fragment" data-show-on-fragment="0">
+                <span class="inline-equation fragment">\begin{equation} n! = n, \forall n \leqslant 1 \end{equation}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Caso recursivo</th>
+              <td class="center hide-on-fragment" data-hide-on-fragment="1">
+                <span class="inline-equation">\begin{equation} ? \end{equation}</span>
+              </td>
+              <td class="center show-on-fragment" data-show-on-fragment="1">
+                <span class="inline-equation fragment">\begin{equation} n! = n*(n-1)!, \forall n > 1 \end{equation}</span>
+              </td>
+            </tr>
+          </table>
+          <div class="small fragment" style="width: 300px; margin: 0 auto;">
+            <pre width="80%"><code data-trim data-noescape>
+              public int fat(int n) {
+                if (n &lt;= 1) return n;
+                else return n*fat(n-1);
+              }
+            </code></pre>
+          </div>
+        </section>
+        <section>
+          <h2>Fatorial</h2>
+          <div class="code-with-case">
+            <pre width="80%"><code data-trim data-noescape data-line-numbers="0|1|2|3|1|2|3|1|2|3|3|4">
+              public int fat(int n) {
+                if (n &lt;= 1) return n;
+                else return n*fat(n-1);
+              }
+            </code></pre>
+            <div class="case">
+              <table class="vector">
+                <tr>
+                  <td class="hint right">n</td>
+                  <td class="element">
+                    <div class="hide-on-fragment" data-hide-on-fragment="3">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="3" data-hide-on-fragment="6">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="8">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="8" data-hide-on-fragment="9">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="9" data-hide-on-fragment="11">3</div>
+                    <div class="show-on-fragment hide-on-fragment lighter" style="font-size: 0.8em;" data-show-on-fragment="11" data-hide-on-fragment="7">&#X2205;</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hint right">retorno</td>
+                  <td class="element">
+                    <div class="hide-on-fragment lighter" style="font-size: 0.8em;" data-hide-on-fragment="7">&#X2205;</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="7" data-hide-on-fragment="8">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="8" data-hide-on-fragment="9">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="9" data-hide-on-fragment="20">6</div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <table class="vector" style="font-size: 0.5em;">
+            <tr>
+              <td class="hint">quadro main</td>
+              <td class="element"></td>
+              <td class="hint">494</td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="10">
+              <td colspan="3" class="hr"><hr/></td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="10">
+              <td class="hint">n</td>
+              <td class="element">3</td>
+              <td class="hint">500</td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="10">
+              <td class="hint">quadro anterior</td>
+              <td class="element">494</td>
+              <td class="hint">504</td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="3" data-hide-on-fragment="9">
+              <td colspan="3" class="hr"><hr/></td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="3" data-hide-on-fragment="9">
+              <td class="hint">n</td>
+              <td class="element">2</td>
+              <td class="hint">512</td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="3" data-hide-on-fragment="9">
+              <td class="hint">quadro anterior</td>
+              <td class="element">504</td>
+              <td class="hint">516</td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="8">
+              <td colspan="3" class="hr"><hr/></td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="8">
+              <td class="hint">n</td>
+              <td class="element">1</td>
+              <td class="hint">524</td>
+            </tr>
+            <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="8">
+              <td class="hint">quadro anterior</td>
+              <td class="element">516</td>
+              <td class="hint">528</td>
+            </tr>
+          </table>
+          <p class="fragment"><span class="equation">\begin{equation} 4 chamadas = 4 quadros \end{equation}</span></p>
+        </section>
+        <section>
+          <h2>Complexidade: Fatorial recursivo</h2>
+          <pre width="80%"><code data-trim data-noescape data-line-numbers="0|1|2|3|1|2|3|1|2|3|3|4">
+            public int fat(int n) {
+              if (n &lt;= 1) return n;
+              else return n*fat(n-1);
+            }
+          </code></pre>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade em tempo</th>
+                <th>Complexidade em espaço</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n) \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Fatorial iterativo</h2>
+          <div class="code-with-case">
+            <pre width="80%"><code data-trim data-noescape data-line-numbers="0|1|2|3|4|5|6|4|5|6|7|8">
+              public int fat(int n) {
+                int retorno = 1;
+                do {
+                  retorno *= n;
+                  n--;
+                } while (n > 1);
+                return retorno;
+              }
+            </code></pre>
+            <div class="case">
+              <table class="vector">
+                <tr>
+                  <td class="hint">quadro main</td>
+                  <td class="element"></td>
+                  <td class="hint">494</td>
+                </tr>
+                <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="10">
+                  <td colspan="3" class="hr"><hr/></td>
+                </tr>
+                <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="10">
+                  <td class="hint">n</td>
+                  <td class="element">
+                    
+                    <div class="hide-on-fragment" data-hide-on-fragment="4">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="4" data-hide-on-fragment="7">2</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="7" data-hide-on-fragment="40">1</div>
+                  </td>
+                  <td class="hint">500</td>
+                </tr>
+                <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="10">
+                  <td class="hint">retorno</td>
+                  <td class="element">
+                    <div class="hide-on-fragment lighter" style="font-size: 0.8em;" data-hide-on-fragment="1">&#X2205;</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="1" data-hide-on-fragment="3">1</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="3" data-hide-on-fragment="6">3</div>
+                    <div class="show-on-fragment hide-on-fragment" data-show-on-fragment="6" data-hide-on-fragment="40">6</div>
+                  </td>
+                  <td class="hint">504</td>
+                </tr>
+                <tr class="show-on-fragment hide-on-fragment" data-show-on-fragment="0" data-hide-on-fragment="10">
+                  <td class="hint">quadro anterior</td>
+                  <td class="element">494</td>
+                  <td class="hint">508</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          
+          <p class="fragment"><span class="equation">\begin{equation} 1 quadro \end{equation}</span></p>
+        </section>
+        <section>
+          <h2>Complexidade: Fatorial iterativo</h2>
+          <pre width="80%"><code data-trim data-noescape data-line-numbers="0|1|2|3|4|5|6|4|5|6|7|8">
+            public int fat(int n) {
+              int retorno = 1;
+              do {
+                retorno *= n;
+                n--;
+              } while (n > 1);
+              return retorno;
+            }
+          </code></pre>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade em tempo</th>
+                <th>Complexidade em espaço</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Recursão de cauda</h2>
+          <ol>
+            <li>A última instrução da função é uma chamada a ela mesma?</li>
+            <li>Será necessário usar dados da pilha atual quando a chamada retornar?</li>
+            <li>Senão, você tem uma recursão em cauda e não precisa empilhar um novo quadro.</li>
+            <li>O compilador otimiza a execução retornando-a para a primeira instrução.</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Fatorial recursivo</h2>
+          <pre width="80%"><code data-trim data-noescape data-line-numbers="0|3">
+            public int fat(int n) {
+              if (n &lt;= 1) return n;
+              else return n*fat(n-1);
+            }
+          </code></pre>
+          <p>É uma recursão em cauda?</p>
+          <p class="show-on-fragment emphasis" data-show-on-fragment="0">Não</p>
+        </section>
+        <section>
+          <h2>Fatorial com recursão em cauda</h2>
+          <pre width="80%"><code data-trim data-noescape data-line-numbers>
+            public int fatCauda(int n, int parcial) {
+              if (n &lt;= 1) return parcial;
+              else return fatCauda(n-1, n*parcial);
+            }
+            public int fat(int n) {
+              return fatCauda(n, 1);
+            }
+          </code></pre>
+          <table class="instrucoes fragment">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade em tempo</th>
+                <th>Complexidade em espaço</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(n) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Exercício 1</h2>
+          <p>Implementar a busca binária de forma recursiva.</p>
+          <div class="small hide-on-fragment" data-hide-on-fragment="0" style="font-size: 0.6em;">
+            <pre width="80%"><code data-trim data-noescape data-line-numbers>
+              public int pesquisaBinariaIterativa(int[] vetor, int chave) {
+                int meio;
+                int inicio = 0.0;
+                int fim = vetor.length - 1.0;
+
+                while (inicio &lt;= fim) {
+                  meio = Math.floor((inicio + fim)/2.0);
+                
+                  if (chave == vetor[meio]) return meio;
+                  else if (chave &lt; vetor[meio]) fim = meio - 1;
+                  else inicio = meio + 1; 
+                }
+
+                return -1;
+              }
+            </code></pre>
+          </div>
+          <div class="small fragment" style="font-size: 0.6em;">
+            <pre width="80%"><code data-trim data-noescape data-line-numbers>
+              public int pesquisaBinariaCauda(int[] vetor, int chave, int inicio, int fim) {
+                int meio;
+
+                if (inicio > fim) return - 1;
+                
+                meio = Math.floor((inicio + fim)/2);
+                
+                if (chave == vetor[meio]) return meio;
+                
+                if (chave &lt; vetor[meio]) return pesquisaBinariaCauda(vetor, chave, inicio, meio - 1);
+                
+                else return pesquisaBinariaCauda(vetor, chave, meio + 1, fim);
+              }
+
+              public int pesquisaBinaria(int[] vetor, int chave) {
+                return pesquisaBinariaCauda(vetor, chave, 0, vetor.length - 1);
+              }
+            </code></pre>
+          </div>
+        </section>
+        <section>
+          <h2>Exercício 2</h2>
+          <p>Calcular a complexidade assintótica em tempo e em espaço.</p>
+          <table class="instrucoes fragment">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade em tempo</th>
+                <th>Complexidade em espaço</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td class="center"><span class="inline-equation emphasis">\begin{equation} ? \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Complexidade Assintótica: Pior caso</h2>
+          <div class="small" style="font-size: 0.6em;">
+            <pre width="80%"><code data-trim data-noescape data-line-numbers>
+              public int pesquisaBinariaCauda(int[] vetor, int chave, int inicio, int fim) {
+                int meio;
+
+                if (inicio > fim) return - 1;
+                
+                meio = Math.floor((inicio + fim)/2);
+                
+                if (chave == vetor[meio]) return meio;
+                
+                if (chave &lt; vetor[meio]) return pesquisaBinariaCauda(vetor, chave, inicio, meio - 1);
+                
+                else return pesquisaBinariaCauda(vetor, chave, meio + 1, fim);
+              }
+
+              public int pesquisaBinaria(int[] vetor, int chave) {
+                return pesquisaBinariaCauda(vetor, chave, 0, vetor.length - 1);
+              }
+            </code></pre>
+          </div>
+          <p><span class="inline-equation">\begin{equation} T(n) = T(n/2) + c \end{equation}</span> e <span class="inline-equation">\begin{equation} T(1) = 1 \end{equation}</span></p>
+        </section>
+        <section>
+          <h2>Complexidade Assintótica: Pior caso</h2>
+          <p><span class="inline-equation">\begin{equation} T(n) = T(n/2) + c \end{equation}</span> e <span class="inline-equation">\begin{equation} T(1) = 1 \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} T(n/2) = T(n/2^2) + c \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} T(n/2^2) = T(n/2^3) + c \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} ... \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} T(n/2^{l-1}) = T(n/2^l) + c \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} T(n/2^l) = 1 \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} \frac{n}{2^l} = 1 \implies n = 2^l \implies l = \log_2{n} \end{equation}</span></p>
+          <p class="fragment">
+            <span class="inline-equation">\begin{equation} T(n) = \log_2{n} + c \end{equation}</span>
+            <span class="inline-equation emphasis">\begin{equation} \implies T \in O(\log{n}) \end{equation}</span>
+          </p>
+        </section>
+        <section>
+          <h2>Exercício 2</h2>
+          <p>Calcular a complexidade assintótica em tempo e em espaço.</p>
+          <table class="instrucoes">
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Complexidade em tempo</th>
+                <th>Complexidade em espaço</th>
+              </tr>
+            </thead>
+            <tr>
+              <th>Melhor caso</th>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+            </tr>
+            <tr>
+              <th>Pior caso</th>
+              <td class="center"><span class="inline-equation emphasis">\begin{equation} O(\log{n}) \end{equation}</span></td>
+              <td class="center"><span class="inline-equation">\begin{equation} O(1) \end{equation}</span></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Outras exemplos</h2>
+          <p><span class="inline-equation">\begin{equation} f(n) = f(n/2) + c \implies O(\log{n}) \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} f(n) = 2f(n/2) + c \implies O(n) \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} f(n) = 2f(n/2) + n \implies O(n\log{n}) \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} f(n) = 4f(n/2) + c \implies O(n^2) \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} f(n) = 4f(n/2) + n \implies O(n^2) \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} f(n) = 4f(n/2) + n^2 \implies O(n^2\log{n}) \end{equation}</span></p>
+          <p class="fragment"><span class="inline-equation">\begin{equation} f(n) = 4f(n/2) + n^3 \implies O(n^3) \end{equation}</span></p>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/chart/Chart.min.js"></script>
+    <script src="plugin/chart/plugin.js"></script>
+
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/mouse-pointer/mouse-pointer.js', async: true }, 
+        ],
+        hash: true,
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          // pass other options into `MathJax.Hub.Config()`
+          TeX: { Macros: { RR: "{\\bf R}" } }
+        },
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealMarkdown, RevealMath, RevealHighlight, RevealNotes, RevealChart ]
+      });
+
+      const handleFragmentChange = function(event) {
+        console.log("Current fragment: " + Reveal.getState().indexf);
+        showOnFragmentChange("code-fragment", "fragmentIndex",
+          matchElement => matchElement.classList.add("visible"),
+          notMatchElement => notMatchElement.classList.remove("visible")
+        );
+        showOnFragmentChange("hide-on-fragment", "hideOnFragment",
+          matchElement => matchElement.classList.add("hidden-fragment"),
+          notMatchElement => notMatchElement.classList.remove("hidden-fragment")
+        );
+        showOnFragmentChange("show-on-fragment", "showOnFragment",
+          matchElement => matchElement.classList.add("shown-fragment"),
+          notMatchElement => notMatchElement.classList.remove("shown-fragment")
+        );
+      }
+      const showOnFragmentChange = function(selector, dataAttribute, matchCallback, notMatchCallback) {
+
+        let condition = (element, currentFragment) => element.dataset[dataAttribute] !== undefined &&  parseInt(element.dataset[dataAttribute], 10) <= currentFragment;
+
+        let indexf = Reveal.getState().indexf;
+        let codeFragments = document.evaluate(`/html//section[contains(@class, 'present')]//*[contains(@class, '${selector}')]`, document, null, XPathResult.ANY_TYPE, null);
+        let codeFragment = codeFragments.iterateNext();
+        let fragmentsMatch = [];
+        let fragmentsNotMatch = [];
+        while (codeFragment) {
+          if (condition(codeFragment, indexf)) {
+            fragmentsMatch.push(codeFragment);
+          } else {
+            fragmentsNotMatch.push(codeFragment);
+          }
+          codeFragment = codeFragments.iterateNext();
+        }
+        
+        for (let i=0; i< fragmentsMatch.length; i++) {
+          matchCallback(fragmentsMatch[i]);
+        }
+        for (let i=0; i< fragmentsNotMatch.length; i++) {
+          notMatchCallback(fragmentsNotMatch[i]);
+        }
+      }
+
+      const resetOnFragmentChange = function (selector) {
+        let codeFragments = document.evaluate(`/html//*[contains(@class, '${selector}')]`, document, null, XPathResult.ANY_TYPE, null);
+        let codeFragment = codeFragments.iterateNext();
+        let fragmentsMatch = [];
+        while (codeFragment) {
+          if (condition(codeFragment, indexf)) {
+            fragmentsMatch.push(codeFragment);
+          } else {
+            fragmentsNotMatch.push(codeFragment);
+          }
+          codeFragment = codeFragments.iterateNext();
+        }
+        
+        for (let i=0; i< fragmentsMatch.length; i++) {
+          fragmentsMatch[i].classList.remove(selector);
+        }
+      };
+
+      Reveal.addEventListener( 'fragmentshown', function( event ) { 
+        handleFragmentChange(event);
+      } );
+      Reveal.addEventListener( 'fragmenthidden', function( event ) { 
+        handleFragmentChange(event);
+      } );
+      Reveal.on( 'slidechanged', event => {
+        resetOnFragmentChange("hidden-fragment");
+        resetOnFragmentChange("shown-fragment");
+        // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      } );
+    </script>
+  </body>
+</html>

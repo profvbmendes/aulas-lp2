@@ -1,0 +1,223 @@
+/**
+ * White theme for reveal.js. This is the opposite of the 'black' theme.
+ *
+ * By Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(./fonts/source-sans-pro/source-sans-pro.css);
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+
+$mainColor: #505050;
+$headingColor: rgb(37,88,151);
+
+$secondColor: rgb(245,56,75);
+$thirdColor: rgb(39,194,39);
+$fourthColor: rgb(168,53,245);
+
+$mainFontSize: 42px;
+$mainFont: 'Source Sans Pro', Helvetica, sans-serif;
+$headingFont: 'Source Sans Pro', Helvetica, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: uppercase;
+$headingFontWeight: 600;
+$linkColor: #2a76dd;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$heading1Size: 2.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+// Change text colors against dark slide backgrounds
+@include dark-bg-text-color(#fff);
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.capa h1 {
+  font-size: 2em;
+  text-transform: none;
+}
+
+.reveal h2 {
+  font-size: 1.2em;
+  text-transform: none;
+}
+
+.capa .codigo-disciplina,
+.capa .semestre {
+  color: $headingColor;
+  font-size: 1.5em;
+  opacity: 0.8; 
+}
+.capa .instituicao,
+.capa .departamento,
+.capa .professor {
+  font-size: 0.7em;
+
+}
+
+.code-with-case {
+  display: flex;
+  font-size: 0.6em;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+
+.case-with-case {
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+.case {
+  margin: 1em 0 0 1em;
+}
+
+.instrucoes {
+  font-size: 0.6em;
+}
+
+.instrucoes td {
+  vertical-align: middle;
+}
+
+.code-fragment {
+  visibility: hidden;
+}
+
+.code-fragment.visible {
+  visibility: visible;
+}
+
+.identation {
+  opacity: 0.15;
+}
+
+.lighter,
+.reveal .slides section .fragment.visible.lighter {
+  opacity: 0.7;
+}
+
+.emphasis {
+  color: $secondColor;
+  font-weight: bold;
+}
+
+.inline-equation {
+  display: inline-block;
+  margin: -1em 0;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+.reveal table.vector td {
+  vertical-align: middle;
+}
+
+.reveal table.vector .elements,
+.reveal table.vector .element,
+.reveal table.vector .elements td {
+  border-top: 1px solid $mainColor;
+  border-left: 1px solid $mainColor;
+  border-bottom: 1px solid $mainColor;
+  border-right: 1px solid $mainColor;
+  text-align: center;
+}
+
+.vector .hint {
+  border: none;
+}
+
+.vector .hr {
+  border: none;
+}
+
+.vector .hr hr {
+  margin: 0.1em 0;
+}
+
+.small {
+  font-size: 0.8em;
+}
+
+.reveal table td.center {
+  text-align: center;
+}
+
+.reveal table td.right {
+  text-align: right;
+}
+
+.reveal .slides section .fragment.step-fade-in-then-out {
+	opacity: 0;
+	display: none;
+}
+.reveal .slides section .fragment.step-fade-in-then-out.current-fragment {
+	opacity: 1;
+	display: inline;
+}
+
+.hidden-fragment {
+  display: none;
+}
+
+.show-on-fragment {
+  display: none;
+}
+.show-on-fragment.shown-fragment {
+  display: block;
+}
+tr.show-on-fragment.shown-fragment {
+  display: table-row;
+}
+.show-on-fragment.shown-fragment.hidden-fragment,
+tr.show-on-fragment.shown-fragment.hidden-fragment {
+  display: none;
+}
+
+.code-note,
+.block-note {
+  color: #999;
+  position: absolute;
+  font-size: 0.3em;
+}
+
+.block-note {
+  border-left: 1px solid #999; 
+  padding-left: 3px;
+}
+
+.code-note.emphasis,
+.block-note.emphasis {
+  color: $secondColor;
+}
+
+.side-separator {
+  border-left: 1px solid #999;
+  padding-left: 1em;
+}
+
+.side-separator:first-child {
+  border-left: none;
+  padding-left: 0;
+}

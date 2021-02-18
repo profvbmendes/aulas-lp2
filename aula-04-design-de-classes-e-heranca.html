@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/imd-ufrn.css" id="theme">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    
+    
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section class="capa">
+          <p class="codigo-disciplina">IMD0040</p>
+          <h1>Linguagem de Programação 2</h1>
+          <p class="instituicao">UFRN - Universidade Federal do Rio Grande do Norte</p>
+          <p class="departamento">IMD - Instituto Metrópole Digital</p>
+          <p class="professor">Professor Vinicius Mendes &lt;<a href="mailto:vinicius.mendes@imd.ufrn.br">mailto:vinicius.mendes@imd.ufrn.br</a>&gt;</p>
+          <p class="semestre">2020.2</p>
+        </section>
+        <section>
+          <h2>Agenda</h2>
+          <ol>
+            <li>Modularização</li>
+            <li>Diagrama de classes</li>
+            <li>Construtores e destrutores</li>
+            <li>Getters e Setters</li>
+            <li>Referências nulas e Optional</li>
+            <li>Manutenabilidade e Qualidade de código</li>
+            <li>Herança</li>
+            <li>Overloading vs Overriding</li>
+            <li>Exercícios</li>
+          </ol>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/chart/Chart.min.js"></script>
+    <script src="plugin/chart/plugin.js"></script>
+
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/mouse-pointer/mouse-pointer.js', async: true }, 
+        ],
+        hash: true,
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          // pass other options into `MathJax.Hub.Config()`
+          TeX: { Macros: { RR: "{\\bf R}" } }
+        },
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealMarkdown, RevealMath, RevealHighlight, RevealNotes, RevealChart ]
+      });
+
+      const handleFragmentChange = function(event) {
+        console.log("Current fragment: " + Reveal.getState().indexf);
+        showOnFragmentChange("code-fragment", "fragmentIndex",
+          matchElement => matchElement.classList.add("visible"),
+          notMatchElement => notMatchElement.classList.remove("visible")
+        );
+        showOnFragmentChange("hide-on-fragment", "hideOnFragment",
+          matchElement => matchElement.classList.add("hidden-fragment"),
+          notMatchElement => notMatchElement.classList.remove("hidden-fragment")
+        );
+        showOnFragmentChange("show-on-fragment", "showOnFragment",
+          matchElement => matchElement.classList.add("shown-fragment"),
+          notMatchElement => notMatchElement.classList.remove("shown-fragment")
+        );
+      }
+      const showOnFragmentChange = function(selector, dataAttribute, matchCallback, notMatchCallback) {
+
+        let condition = (element, currentFragment) => element.dataset[dataAttribute] !== undefined &&  parseInt(element.dataset[dataAttribute], 10) <= currentFragment;
+
+        let indexf = Reveal.getState().indexf;
+        let codeFragments = document.evaluate(`/html//section[contains(@class, 'present')]//*[contains(@class, '${selector}')]`, document, null, XPathResult.ANY_TYPE, null);
+        let codeFragment = codeFragments.iterateNext();
+        let fragmentsMatch = [];
+        let fragmentsNotMatch = [];
+        while (codeFragment) {
+          if (condition(codeFragment, indexf)) {
+            fragmentsMatch.push(codeFragment);
+          } else {
+            fragmentsNotMatch.push(codeFragment);
+          }
+          codeFragment = codeFragments.iterateNext();
+        }
+        
+        for (let i=0; i< fragmentsMatch.length; i++) {
+          matchCallback(fragmentsMatch[i]);
+        }
+        for (let i=0; i< fragmentsNotMatch.length; i++) {
+          notMatchCallback(fragmentsNotMatch[i]);
+        }
+      }
+
+      const resetOnFragmentChange = function (selector) {
+        let codeFragments = document.evaluate(`/html//*[contains(@class, '${selector}')]`, document, null, XPathResult.ANY_TYPE, null);
+        let codeFragment = codeFragments.iterateNext();
+        let fragmentsMatch = [];
+        while (codeFragment) {
+          if (condition(codeFragment, indexf)) {
+            fragmentsMatch.push(codeFragment);
+          } else {
+            fragmentsNotMatch.push(codeFragment);
+          }
+          codeFragment = codeFragments.iterateNext();
+        }
+        
+        for (let i=0; i< fragmentsMatch.length; i++) {
+          fragmentsMatch[i].classList.remove(selector);
+        }
+      };
+
+      Reveal.addEventListener( 'fragmentshown', function( event ) { 
+        handleFragmentChange(event);
+      } );
+      Reveal.addEventListener( 'fragmenthidden', function( event ) { 
+        handleFragmentChange(event);
+      } );
+      Reveal.on( 'slidechanged', event => {
+        resetOnFragmentChange("hidden-fragment");
+        resetOnFragmentChange("shown-fragment");
+        // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+      } );
+    </script>
+  </body>
+</html>
